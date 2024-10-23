@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Gerenciamento de Segurança{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'controle_acesso_index' %}">Controle de Acesso</a></li>
+                <li><a href="{% url 'gestao_recursos_index' %}">Recursos</a></li>
+                <li><a href="{% url 'dashboard_index' %}">Dashboard</a></li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <form method="POST" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Conteúdo das páginas será injetado aqui -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2024 Wayne Industries. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

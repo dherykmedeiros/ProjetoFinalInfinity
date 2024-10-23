@@ -1,0 +1,10 @@
+Tela de Login
+Tela de Recuperação de Senha
+Tela de Autorização
+Tela de Auditoria de Acesso
+Tela de Inventário de Recursos
+Tela de Adição/Atualização de Recurso
+Tela de Visualização de Recurso Individual
+Tela Principal do Dashboard
+Tela de Monitoramento em Tempo Real (opcional)
+Tela de Relatórios
