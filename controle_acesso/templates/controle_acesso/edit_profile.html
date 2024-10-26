@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Editar Perfil</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Renderiza o formulário -->
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<a href="{% url 'perfil' %}">Cancelar</a>  <!-- Link para voltar à página de perfil -->
+
+{% endblock %}

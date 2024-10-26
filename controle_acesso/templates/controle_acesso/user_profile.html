@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %} Perfil de {{ user.username }} {% endblock %}
+
+{% block content %}
+<p><strong>Nome de usuário:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+
+{% if user.first_name or user.last_name %}
+    <p><strong>Nome Completo:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+{% endif %}
+
+<p><strong>Cargo:</strong> 
+    {% if user.groups.all %} {{ user.groups.first.name }} {% else %} {% if user.is_superuser %} Admin {% else %} Funcionario  {% endif %} {% endif %}
+</p>
+{% endblock %}

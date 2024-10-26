@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'controle_acesso',
     'gestao_recursos',
-    'dashboard'
+    'dashboard',
+    # 'controle_acesso.apps.YourAppConfig'
 ]
 
 MIDDLEWARE = [
@@ -132,5 +133,5 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'home'  # Para onde redirecionar após login bem-sucedido
+LOGIN_REDIRECT_URL = '/acesso/check-password-change'  # Para onde redirecionar após login bem-sucedido
 LOGOUT_REDIRECT_URL = 'home'  # Para onde redirecionar após logout

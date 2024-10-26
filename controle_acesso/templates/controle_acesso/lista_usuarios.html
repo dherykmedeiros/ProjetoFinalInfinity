@@ -6,7 +6,7 @@
     <h2>Lista de Usuários</h2>
     <ul>
         {% for usuario in usuarios %}
-            <li>{{ usuario.username }} - {{ usuario.email }} {% if usuario.is_staff %} (Gerente) {% else %} (Funcionário) {% endif %}</li>
+            <li>{{ usuario.username }} - {{ usuario.email }} - {% if usuario.groups.all %} {{ usuario.groups.first.name }} {% else %} {% if usuario.is_superuser %} Admin  {% else %} Funcionario  {% endif %} {% endif %}</li>
         {% endfor %}
     </ul>
 {% endblock %}
