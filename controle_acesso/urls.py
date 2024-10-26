@@ -10,5 +10,5 @@ urlpatterns = [
     path('perfil/editar/', views.edit_profile, name='edit_profile'),
     path('check-password-change/', views.check_password_change, name='check_password_change'),
     path('trocar-senha/', CustomPasswordChangeView.as_view(), name='change_password'),
-    
+    path('historico-atividades/',views.UserActivityListView.as_view(), name='user_activity_list')
 ]

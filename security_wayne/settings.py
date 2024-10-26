@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'controle_acesso',
     'gestao_recursos',
     'dashboard',
-    # 'controle_acesso.apps.YourAppConfig'
+    'controle_acesso.apps.ControleAcessoConfig',
+    # 'controle_acesso',
 ]
 
 MIDDLEWARE = [

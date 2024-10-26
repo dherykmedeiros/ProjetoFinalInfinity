@@ -5,7 +5,9 @@ from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .forms import GerenteCadastroForm, EditProfileForm
-from .models import Profile
+from .models import Profile, UserActivity
+from django.views.generic import ListView
+
 
 # Função de view para a página inicial
 def index(request):
@@ -77,3 +79,9 @@ class CustomPasswordChangeView(PasswordChangeView):
         self.request.user.profile.save()
         return response
 
+class UserActivityListView(ListView):
+    model = UserActivity
+    template_name = 'controle_acesso/user_activity_list.html'
+    context_object_name = 'activities'
+    ordering = ['-timestamp']
+    paginate_by = 10
