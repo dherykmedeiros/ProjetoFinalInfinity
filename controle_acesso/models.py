@@ -10,4 +10,3 @@ class Profile(models.Model):
     must_change_password = models.BooleanField(default=True)  # Indica se o usuário precisa mudar a senha
 
 
-

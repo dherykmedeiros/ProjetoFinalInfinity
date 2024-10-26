@@ -76,3 +76,4 @@ class CustomPasswordChangeView(PasswordChangeView):
         self.request.user.profile.must_change_password = False
         self.request.user.profile.save()
         return response
+

@@ -10,6 +10,19 @@
 {% endif %}
 
 <p><strong>Cargo:</strong> 
-    {% if user.groups.all %} {{ user.groups.first.name }} {% else %} {% if user.is_superuser %} Admin {% else %} Funcionario  {% endif %} {% endif %}
+    {% if user.groups.all %} 
+        {{ user.groups.first.name }} 
+    {% else %} 
+        {% if user.is_superuser %} 
+            Admin 
+        {% else %} 
+            Funcionario  
+        {% endif %} 
+    {% endif %}
 </p>
+
+<!-- Links para edição do perfil e troca de senha -->
+<p><a href="{% url 'edit_profile' %}">Editar Perfil</a></p>
+<p><a href="{% url 'change_password' %}">Trocar Senha</a></p>
+
 {% endblock %}
