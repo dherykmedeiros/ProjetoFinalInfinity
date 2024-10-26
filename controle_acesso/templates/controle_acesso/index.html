@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
+{% load custom_tags %}
 {% block title %}Acesso ao Sistema{% endblock %}
 
 {% block content %}
@@ -8,12 +8,17 @@
     {% if user.is_authenticated %}
         <p>Você está logado como {{ user.username }}.</p>
 
-        {% if user.is_superuser or user.is_staff %}
+        {% if user.is_superuser %}
             <p><a href="{% url 'cadastro_usuario' %}">Cadastrar Novo Usuário</a></p>
             <p><a href="{% url 'lista_usuarios' %}">Lista de Usuários</a></p>
+
+        {% elif user|in_group:"Gerente" %}
+            <p><a href="{% url 'lista_usuarios' %}">Lista de Usuários</a></p>
+
         {% else %}
             <p>Você não possui acesso a essas áreas.</p>
         {% endif %}
+
     {% else %}
         <p>Por favor, <a href="{% url 'login' %}">faça login</a> para acessar o sistema.</p>
     {% endif %}
