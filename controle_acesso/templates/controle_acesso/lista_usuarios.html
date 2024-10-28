@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load custom_tags %}
+
 {% block title %}Lista de Usuários{% endblock %}
 
 {% block content %}
@@ -8,15 +10,24 @@
     <ul class="bg-gray-800 p-4 rounded-lg shadow-md space-y-3">
         {% for usuario in usuarios %}
             <li class="flex justify-between items-center p-3 bg-gray-700 rounded-md text-gray-300">
-                <span class="font-semibold">{{ usuario.username }}</span> 
-                <span>{{ usuario.email }}</span>
+                <div class="flex flex-col">
+                    <span class="font-semibold">{{ usuario.username }}</span>
+                    <span>{{ usuario.email }}</span>
+                </div>
+                
                 <span class="text-yellow-500">
                     {% if usuario.groups.all %}
                         {{ usuario.groups.first.name }}
                     {% else %}
-                        {% if usuario.is_superuser %} Admin {% else %} Funcionario {% endif %}
+                        {% if usuario.is_superuser %} Admin {% else %} Sem função atribuída {% endif %}
                     {% endif %}
                 </span>
+                
+                {% if usuario|in_group:"Funcionarios" or usuario|in_group:"Segurança" or usuario|in_group:"Serviços gerais" %}
+                    <a href="{% url 'set_group' usuario.id %}" class="ml-4 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold rounded-md shadow">
+                        Definir Função
+                    </a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

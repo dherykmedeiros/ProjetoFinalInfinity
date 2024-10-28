@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-from .forms import GerenteCadastroForm, EditProfileForm
+from .forms import GerenteCadastroForm, EditProfileForm, SetGroupForm
 from .models import Profile, UserActivity
 from django.views.generic import ListView
 from django.core.paginator import Paginator
@@ -97,3 +97,18 @@ def activity_log_view(request):
     activities = paginator.get_page(page_number)
 
     return render(request, 'controle_acesso/user_activity_list.html', {'activities': activities})
+
+@login_required
+@user_passes_test(is_manager_adm)
+def set_group(request, user_id):
+    user = User.objects.get(id=user_id)
+    
+    if request.method == 'POST':
+        form = SetGroupForm(request.POST, user=user)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_usuarios')
+    else:
+        form = SetGroupForm(user=user)
+    
+    return render(request, 'controle_acesso/set_group.html', {'form': form, 'user': user})
