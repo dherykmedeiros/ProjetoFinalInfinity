@@ -3,24 +3,41 @@
 {% block title %}Acesso ao Sistema{% endblock %}
 
 {% block content %}
-    <h2>Bem-vindo ao Controle de acesso</h2>
+    <h2 class="text-3xl font-semibold text-yellow-500 mb-4">Bem-vindo ao Controle de Acesso</h2>
 
     {% if user.is_authenticated %}
-        <p>Você está logado como {{ user.username }}.</p>
+        <p class="text-lg text-gray-400 mb-4">Você está logado como <span class="font-semibold">{{ user.username }}</span>.</p>
 
-        {% if user.is_superuser %}
-            <p><a href="{% url 'cadastro_usuario' %}">Cadastrar Novo Usuário</a></p>
-            <p><a href="{% url 'lista_usuarios' %}">Lista de Usuários</a></p>
-
-        {% elif user|in_group:"Gerente" %}
-            <p><a href="{% url 'lista_usuarios' %}">Lista de Usuários</a></p>
-
-        {% else %}
-            <p>Você não possui acesso a essas áreas.</p>
-        {% endif %}
-
+        <div class="space-y-2">
+            {% if user.is_superuser %}
+                <p>
+                    <a href="{% url 'cadastro_usuario' %}" class="text-yellow-500 hover:text-yellow-400 underline">
+                        Cadastrar Novo Usuário
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url 'lista_usuarios' %}" class="text-yellow-500 hover:text-yellow-400 underline">
+                        Lista de Usuários
+                    </a>
+                </p>
+                <p>
+                    <a href="{% url 'user_activity_list' %}" class="text-yellow-500 hover:text-yellow-400 underline">
+                        Entrada e Saída de Funcionários
+                    </a>
+                </p>
+            {% elif user|in_group:"Gerente" %}
+                <p>
+                    <a href="{% url 'lista_usuarios' %}" class="text-yellow-500 hover:text-yellow-400 underline">
+                        Lista de Usuários
+                    </a>
+                </p>
+            {% else %}
+                <p class="text-red-500 font-semibold">Você não possui acesso a essas áreas.</p>
+            {% endif %}
+        </div>
     {% else %}
-        <p>Por favor, <a href="{% url 'login' %}">faça login</a> para acessar o sistema.</p>
+        <p class="text-lg text-gray-400">
+            Por favor, <a href="{% url 'login' %}" class="text-yellow-500 hover:text-yellow-400 underline">faça login</a> para acessar o sistema.
+        </p>
     {% endif %}
-
 {% endblock %}

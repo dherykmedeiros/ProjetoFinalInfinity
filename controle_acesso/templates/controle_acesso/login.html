@@ -3,10 +3,21 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Entrar</button>
-    </form>
+<div class="flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="w-full max-w-md p-8 bg-black rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold text-yellow-500 text-center mb-6">Entrar no Sistema</h2>
+        
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="space-y-4">
+                {{ form.as_p }}
+            </div>
+            
+            <button type="submit" class="w-full py-2 bg-yellow-500 text-gray-800 font-semibold rounded-md hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-300">
+                Entrar
+            </button>
+        </form>
+    </div>
+</div>
 {% endblock %}

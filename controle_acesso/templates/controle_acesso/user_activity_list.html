@@ -1,46 +1,47 @@
 {% extends "base.html" %}
 
-{% block title %} Historico de login e logout {% endblock title %} Historico de login e logout 
-{% block content %}
-<body>
-    <h1>Histórico de Login e Logout dos Usuários</h1>
+{% block title %}Histórico de Login e Logout{% endblock %}
 
-    <table border="1">
+{% block content %}
+    <h1 class="text-3xl font-semibold text-yellow-500 mb-6">Histórico de Login e Logout dos Usuários</h1>
+
+    <table class="min-w-full bg-gray-800 rounded-lg shadow-lg">
         <thead>
-            <tr>
-                <th>Usuário</th>
-                <th>Ação</th>
-                <th>Data e Hora</th>
+            <tr class="bg-gray-700 text-yellow-500">
+                <th class="py-2 px-4 text-left">Usuário</th>
+                <th class="py-2 px-4 text-left">Ação</th>
+                <th class="py-2 px-4 text-left">Data e Hora</th>
             </tr>
         </thead>
         <tbody>
             {% for activity in activities %}
-                <tr>
-                    <td>{{ activity.user.username }}</td>
-                    <td>{{ activity.get_action_display }}</td>
-                    <td>{{ activity.timestamp|date:"d/m/Y H:i" }}</td>
+                <tr class="border-b border-gray-600 text-gray-300">
+                    <td class="py-2 px-4">{{ activity.user.username }}</td>
+                    <td class="py-2 px-4">{{ activity.get_action_display }}</td>
+                    <td class="py-2 px-4">{{ activity.timestamp|date:"d/m/Y H:i" }}</td>
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="3">Nenhuma atividade encontrada.</td>
+                    <td colspan="3" class="py-4 px-4 text-center text-gray-400">Nenhuma atividade encontrada.</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <!-- Paginação -->
-    <div>
-        <span>
+    <div class="mt-4 flex justify-center items-center text-gray-400">
+        <span class="mx-2">
             Página {{ activities.number }} de {{ activities.paginator.num_pages }}
         </span>
 
         {% if activities.has_previous %}
-            <a href="?page=1">Primeira</a>
-            <a href="?page={{ activities.previous_page_number }}">Anterior</a>
+            <a href="?page=1" class="mx-1 text-yellow-500 hover:text-yellow-400">Primeira</a>
+            <a href="?page={{ activities.previous_page_number }}" class="mx-1 text-yellow-500 hover:text-yellow-400">Anterior</a>
         {% endif %}
 
         {% if activities.has_next %}
-            <a href="?page={{ activities.next_page_number }}">Próxima</a>
-            <a href="?page={{ activities.paginator.num_pages }}">Última</a>
+            <a href="?page={{ activities.next_page_number }}" class="mx-1 text-yellow-500 hover:text-yellow-400">Próxima</a>
+            <a href="?page={{ activities.paginator.num_pages }}" class="mx-1 text-yellow-500 hover:text-yellow-400">Última</a>
         {% endif %}
+    </div>
 {% endblock %}

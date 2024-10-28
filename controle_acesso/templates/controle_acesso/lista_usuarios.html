@@ -3,10 +3,21 @@
 {% block title %}Lista de Usuários{% endblock %}
 
 {% block content %}
-    <h2>Lista de Usuários</h2>
-    <ul>
+    <h2 class="text-3xl font-semibold text-yellow-500 mb-6">Lista de Usuários</h2>
+    
+    <ul class="bg-gray-800 p-4 rounded-lg shadow-md space-y-3">
         {% for usuario in usuarios %}
-            <li>{{ usuario.username }} - {{ usuario.email }} - {% if usuario.groups.all %} {{ usuario.groups.first.name }} {% else %} {% if usuario.is_superuser %} Admin  {% else %} Funcionario  {% endif %} {% endif %}</li>
+            <li class="flex justify-between items-center p-3 bg-gray-700 rounded-md text-gray-300">
+                <span class="font-semibold">{{ usuario.username }}</span> 
+                <span>{{ usuario.email }}</span>
+                <span class="text-yellow-500">
+                    {% if usuario.groups.all %}
+                        {{ usuario.groups.first.name }}
+                    {% else %}
+                        {% if usuario.is_superuser %} Admin {% else %} Funcionario {% endif %}
+                    {% endif %}
+                </span>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

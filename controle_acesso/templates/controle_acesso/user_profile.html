@@ -1,28 +1,33 @@
 {% extends "base.html" %}
-{% block title %} Perfil de {{ user.username }} {% endblock %}
+{% block title %}Perfil de {{ user.username }}{% endblock %}
 
 {% block content %}
-<p><strong>Nome de usuário:</strong> {{ user.username }}</p>
-<p><strong>Email:</strong> {{ user.email }}</p>
+<div class="bg-gray-800 p-6 rounded-lg shadow-lg text-gray-300 max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-yellow-500 mb-4">Perfil de {{ user.username }}</h2>
 
-{% if user.first_name or user.last_name %}
-    <p><strong>Nome Completo:</strong> {{ user.first_name }} {{ user.last_name }}</p>
-{% endif %}
+    <p><strong>Nome de usuário:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
 
-<p><strong>Cargo:</strong> 
-    {% if user.groups.all %} 
-        {{ user.groups.first.name }} 
-    {% else %} 
-        {% if user.is_superuser %} 
-            Admin 
-        {% else %} 
-            Funcionario  
-        {% endif %} 
+    {% if user.first_name or user.last_name %}
+        <p><strong>Nome Completo:</strong> {{ user.first_name }} {{ user.last_name }}</p>
     {% endif %}
-</p>
 
-<!-- Links para edição do perfil e troca de senha -->
-<p><a href="{% url 'edit_profile' %}">Editar Perfil</a></p>
-<p><a href="{% url 'change_password' %}">Trocar Senha</a></p>
+    <p><strong>Cargo:</strong> 
+        {% if user.groups.all %}
+            {{ user.groups.first.name }}
+        {% else %}
+            {% if user.is_superuser %}
+                Admin
+            {% else %}
+                Funcionario
+            {% endif %}
+        {% endif %}
+    </p>
 
+    <!-- Links para edição do perfil e troca de senha -->
+    <div class="mt-4">
+        <a href="{% url 'edit_profile' %}" class="block text-yellow-500 hover:text-yellow-400">Editar Perfil</a>
+        <a href="{% url 'change_password' %}" class="block text-yellow-500 hover:text-yellow-400">Trocar Senha</a>
+    </div>
+</div>
 {% endblock %}

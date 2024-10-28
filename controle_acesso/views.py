@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from .forms import GerenteCadastroForm, EditProfileForm
 from .models import Profile, UserActivity
 from django.views.generic import ListView
+from django.core.paginator import Paginator
 
 
 # Função de view para a página inicial
@@ -79,9 +80,20 @@ class CustomPasswordChangeView(PasswordChangeView):
         self.request.user.profile.save()
         return response
 
-class UserActivityListView(ListView):
-    model = UserActivity
-    template_name = 'controle_acesso/user_activity_list.html'
-    context_object_name = 'activities'
-    ordering = ['-timestamp']
-    paginate_by = 10
+
+# class UserActivityListView(ListView):
+#     model = UserActivity
+#     template_name = 'controle_acesso/user_activity_list.html'
+#     context_object_name = 'activities'
+#     ordering = ['-timestamp']
+#     paginate_by = 10
+@login_required
+@user_passes_test(is_admin)
+def activity_log_view(request):
+    activities_list = UserActivity.objects.select_related('user').order_by('-timestamp')
+    paginator = Paginator(activities_list, 10)  # Mostra 10 atividades por página
+
+    page_number = request.GET.get('page')
+    activities = paginator.get_page(page_number)
+
+    return render(request, 'controle_acesso/user_activity_list.html', {'activities': activities})

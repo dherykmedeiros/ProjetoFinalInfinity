@@ -5,37 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Sistema de Gerenciamento de Segurança{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'controle_acesso_index' %}">Controle de Acesso</a></li>
-                <li><a href="{% url 'gestao_recursos_index' %}">Recursos</a></li>
-                <li><a href="{% url 'dashboard_index' %}">Dashboard</a></li>
+<body class="bg-gray-1200 text-gray-500">
+    <!-- Header -->
+    <header class="bg-black text-yellow-500 shadow-lg">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'home' %}" class="text-2xl font-semibold">Wayne Industries</a>
+            </div>
+            <ul class="flex space-x-6">
+                <li><a href="{% url 'home' %}" class="hover:text-yellow-400">Home</a></li>
+                <li><a href="{% url 'controle_acesso_index' %}" class="hover:text-yellow-400">Controle de Acesso</a></li>
+                <li><a href="{% url 'gestao_recursos_index' %}" class="hover:text-yellow-400">Recursos</a></li>
+                <li><a href="{% url 'dashboard_index' %}" class="hover:text-yellow-400">Dashboard</a></li>
                 {% if user.is_authenticated %}
                     <li>
-                        <form method="POST" action="{% url 'logout' %}">
+                        <form method="POST" action="{% url 'logout' %}" class="inline">
                             {% csrf_token %}
-                            <button type="submit">Logout</button>
+                            <button type="submit" class="hover:text-yellow-400">Logout</button>
                         </form>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'login' %}" class="hover:text-yellow-400">Login</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
 
-    <main>
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
         {% block content %}
         <!-- Conteúdo das páginas será injetado aqui -->
         {% endblock %}
     </main>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="bg-black text-yellow-500 text-center py-4">
         <p>© 2024 Wayne Industries. Todos os direitos reservados.</p>
     </footer>
 </body>
